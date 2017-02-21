@@ -74,3 +74,4 @@ plt.show()
 # Show some slice in the middle
 plt.imshow(first_patient_pixels[80], cmap=plt.cm.gray)
 plt.show()
+# IDK why there are green lines everywhere
