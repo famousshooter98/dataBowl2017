@@ -108,7 +108,7 @@ def plot_3d(image, threshold=-300):
 
     plt.show()
 
-plot_3d(pix_resampled, 400)
+#plot_3d(pix_resampled, 400)
 
 def largest_label_volume(im, bg=-1):
     vals, counts = np.unique(im, return_counts=True)
