@@ -66,7 +66,7 @@ plt.show()
 plt.imshow(first_patient_pixels[80], cmap=plt.cm.gray)
 plt.show()
 
-# IDK why there are green lines everywhere
+### NEW STUFF ###
 def resample(image, scan, new_spacing=[1,1,1]):
     # Determine current pixel spacing
     spacing = np.array([scan[0].SliceThickness] + scan[0].PixelSpacing, dtype=np.float32)
@@ -97,8 +97,8 @@ def plot_3d(image, threshold=-300):
     ax = fig.add_subplot(111, projection='3d')
 
     # Fancy indexing: `verts[faces]` to generate a collection of triangles
-    mesh = Poly3DCollection(verts[faces], alpha=0.1)
-    face_color = [0.5, 0.5, 1]
+    mesh = Poly3DCollection(verts[faces], alpha=0.70)
+    face_color = [0.45, 0.45, 0.75]
     mesh.set_facecolor(face_color)
     ax.add_collection3d(mesh)
 
@@ -108,7 +108,7 @@ def plot_3d(image, threshold=-300):
 
     plt.show()
 
-#plot_3d(pix_resampled, 400)
+plot_3d(pix_resampled, 400)
 
 def largest_label_volume(im, bg=-1):
     vals, counts = np.unique(im, return_counts=True)
@@ -161,5 +161,9 @@ def segment_lung_mask(image, fill_lung_structures=True):
         binary_image[labels != l_max] = 0
  
     return binary_image
+
+segmented_lungs = segment_lung_mask(pix_resampled, False)
+segmented_lungs_fill = segment_lung_mask(pix_resampled, True)
+plot_3d(segmented_lungs, 0)
 plot_3d(segmented_lungs_fill, 0)
 plot_3d(segmented_lungs_fill - segmented_lungs, 0)
