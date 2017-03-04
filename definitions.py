@@ -1,4 +1,14 @@
 # This file will be the official reference to define all of the functions we will use throughout the dataset
+# I guess I need to do the imports from here?
+import os
+import numpy as np
+import dicom
+import scipy.ndimage
+import matplotlib.pyplot as plt
+
+from skimage import measure
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
 
 # Load the scans in given folder path
 def load_scan(path):
@@ -127,4 +137,26 @@ def segment_lung_mask(image, fill_lung_structures=True):
         binary_image[labels != l_max] = 0
  
     return binary_image
+    
+MIN_BOUND = -1000.0
+MAX_BOUND = 400.0
+    
+def normalize(image):
+    image = (image - MIN_BOUND) / (MAX_BOUND - MIN_BOUND)
+    image[image>1] = 1.
+    image[image<0] = 0.
+    return image
+    
+PIXEL_MEAN = 0.25
+
+def zero_center(image):
+    image = image - PIXEL_MEAN
+    return image
+
+def ext_mask(binary_image, itrs=1):
+    return scipy.ndimage.morphology.binary_dilation(binary_image, iterations=itrs).astype(binary_image.dtype)
+    
+
+
+    
 
