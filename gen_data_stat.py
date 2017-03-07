@@ -6,7 +6,7 @@ import pandas as pd
 import json
 
 # Load Patient Folder
-INPUT_FOLDER = 'C:/Users/stephen_GAME/Google Drive/UB documents/Spring 2017/BE 400/kaggle_group/sample_images/'  # Note, this is for sample images
+INPUT_FOLDER = 'E:/BE400_Data/stage1/'  # Note, this is for sample images
 patients = definitions.os.listdir(INPUT_FOLDER)
 patients.sort()
 
@@ -25,8 +25,8 @@ NstdInsideVolumes    = []
 procTimes           = []
 
 
-
-for idx, patient in enumerate(patients[0:5]):
+Ttime = 0
+for idx, patient in enumerate(patients):
     start       = time.perf_counter()
     data        = definitions.load_scan(INPUT_FOLDER + patient)
     pixels      = definitions.get_pixels_hu(data)
@@ -52,7 +52,8 @@ for idx, patient in enumerate(patients[0:5]):
     NmeanInsideVolumes.append(NmeanInsideVolume)
     NstdInsideVolumes.append(NstdInsideVolume)
     procTimes.append(time.perf_counter() - start)
-    print('Iteration: ', idx, 'Elapsed time: ', definitions.np.sum(procTimes))
+    Ttime = Ttime + procTimes[-1]
+    print('Iteration: ', idx, 'Elapsed time: ', Ttime)
 
 
 # Write out using pandas
