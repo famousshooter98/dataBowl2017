@@ -252,6 +252,7 @@ def Nplot_3d(image, threshold=-300):
     p = p[:,:,::-1]
     
     verts, faces = measure.marching_cubes(p, threshold)
+<<<<<<< HEAD
 
     fig = plt.figure(figsize=(10, 10))
     ax = fig.add_subplot(111, projection='3d')
@@ -273,6 +274,23 @@ def plot_2d(scan):
     for i in range(0, scan.shape[0], 5):
         plots[int(i / 20), int((i % 20) / 5)].axis('off')
         plots[int(i / 20), int((i % 20) / 5)].imshow(scan[i], cmap=plt.cm.bone)     
+=======
+
+    fig = plt.figure(figsize=(10, 10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Fancy indexing: `verts[faces]` to generate a collection of triangles
+    mesh = Poly3DCollection(verts[faces], alpha=0.1)
+    face_color = [0.5, 0.5, 1]
+    mesh.set_facecolor(face_color)
+    ax.add_collection3d(mesh)
+
+    ax.set_xlim(0, p.shape[0])
+    ax.set_ylim(0, p.shape[1])
+    ax.set_zlim(0, p.shape[2])
+
+    plt.show()  
+>>>>>>> 27bf9a2c0d4131e09e34377fc21190fc993cc649
 
 ## UNET Candidate Detection
 #
