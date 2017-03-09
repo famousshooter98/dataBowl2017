@@ -91,6 +91,8 @@ def plot_3d(image, threshold=-300):
 
     plt.show()
 
+    plt.show()
+
 def largest_label_volume(im, bg=-1):
     vals, counts = np.unique(im, return_counts=True)
 
@@ -265,6 +267,12 @@ def Nplot_3d(image, threshold=-300):
     ax.set_zlim(0, p.shape[2])
 
     plt.show()  
+
+def plot_2d(scan):
+    f, plots = plt.subplots(int(scan.shape[0] / 20) + 1, 4, figsize=(25, 25))
+    for i in range(0, scan.shape[0], 5):
+        plots[int(i / 20), int((i % 20) / 5)].axis('off')
+        plots[int(i / 20), int((i % 20) / 5)].imshow(scan[i], cmap=plt.cm.bone)     
 
 ## UNET Candidate Detection
 #
