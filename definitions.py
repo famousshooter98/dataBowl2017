@@ -74,6 +74,8 @@ def resample(image, scan, new_spacing=[1,1,1]):
     image = scipy.ndimage.interpolation.zoom(image, real_resize_factor, mode='nearest')
     
     return image, new_spacing
+    
+    return image, new_spacing
 
 def plot_3d(image, threshold=-300):
     
