@@ -7,8 +7,8 @@ import json
 import mrcfile
 
 # Load Patient Folder
-INPUT_FOLDER = 'C:/Users/stephen_GAME/Google Drive/UB documents/Spring 2017/BE 400/sample_images/'
-#INPUT_FOLDER = 'E:/BE400_Data/stage1/'  # Note, this is for sample images
+#INPUT_FOLDER = 'C:/Users/stephen_GAME/Google Drive/UB documents/Spring 2017/BE 400/sample_images/'
+INPUT_FOLDER = 'E:/BE400_Data/stage1/'  # Note, this is for sample images
 patients = definitions.os.listdir(INPUT_FOLDER)
 patients.sort()
 # Load Patient Labels
@@ -22,6 +22,7 @@ voxSizes            = []
 voxDims1            = []
 voxDims2            = []
 voxDims3            = []
+volumes             = []
 LungVolumes         = []
 UsedVolumes         = []
 meanInsideVolumes   = []
@@ -101,9 +102,9 @@ for idx, patient in enumerate(patients):
     procTimes.append(time.perf_counter() - start)
     Ttime = Ttime + procTimes[-1]
     print('Iteration: ', idx, 'Elapsed time: ', Ttime)
-    fname = 'vols/img_' + str(idx) + '.mrc'
-    with mrcfile.new(fname) as mrc:
-        mrc.set_data(npixels)
+#    fname = 'vols/img_' + str(idx) + '.mrc'
+#    with mrcfile.new(fname) as mrc:
+#        mrc.set_data(npixels)
 
 
 print('It ran!')
@@ -111,11 +112,13 @@ print('It ran!')
 #I Guess use a dictionaary
 genData = {}
 genData['Patient ID'] = patientID
+genData['Diag']     = patientDiag
 genData['voxSizes'] = voxSizes
 genData['voxDims1'] = voxDims1
 genData['voxDims2'] = voxDims2
 genData['voxDims3'] = voxDims3
-genData['volumes'] = volumes
+genData['TotVolumes'] = volumes
+genData['UsedVolumes']= UsedVolumes
 genData['meanInsideVolumes'] = meanInsideVolumes
 genData['stdInsideVolumes'] = stdInsideVolumes
 genData['procTimes'] = procTimes
